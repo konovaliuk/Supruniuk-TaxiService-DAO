@@ -11,5 +11,4 @@ public interface IRoleDAO {
     void save(String rolename);
     void update(long id, String rolename);
     void delete(long id);
-
 }

@@ -1,8 +1,10 @@
 package com.taxicall.database;
 
+import com.taxicall.database.dao.DriverStatusDAO;
 import com.taxicall.database.dao.RoleDAO;
 import com.taxicall.database.dao.UserRoleDAO;
 import com.taxicall.database.dao.UsersDAO;
+import com.taxicall.database.entities.DriverStatus;
 
 import java.sql.*;
 import java.util.concurrent.SynchronousQueue;
@@ -66,5 +68,15 @@ public class Main {
 //        roleDAO.save("test2");
 //        roleDAO.update(1, "admin");
 //        roleDAO.delete(8);
+//
+//  ----------------  DRIVER STATUS  ---------------------
+
+        DriverStatusDAO driverStatusDAO = new DriverStatusDAO();
+
+//      driverStatusDAO.findAll();
+//        driverStatusDAO.findByDriverID(7);
+//        driverStatusDAO.delete(7);
+//        driverStatusDAO.save(7, "busy");
+//        driverStatusDAO.update(7, "available");
     }
 }
