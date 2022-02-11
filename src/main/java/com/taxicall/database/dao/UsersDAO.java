@@ -12,12 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UsersDAO implements IUsersDAO {
-    private String COLUMN_ID = "id";
-    private String COLUMN_NAME = "name";
-    private String COLUMN_SURNAME = "surname";
-    private String COLUMN_EMAIL = "email";
-    private String COLUMN_PASSWORD = "password_hash";
-    private String COLUMN_CREATION_DATE = "created_on";
+    private final String COLUMN_ID = "id";
+    private final String COLUMN_NAME = "name";
+    private final String COLUMN_SURNAME = "surname";
+    private final String COLUMN_EMAIL = "email";
+    private final String COLUMN_PASSWORD = "password_hash";
+    private final String COLUMN_CREATION_DATE = "created_on";
 
     public List<User> findAll () {
         String query = "select * from users";

@@ -1,9 +1,11 @@
 package com.taxicall.database;
 
+import com.taxicall.database.dao.RoleDAO;
 import com.taxicall.database.dao.UserRoleDAO;
 import com.taxicall.database.dao.UsersDAO;
 
 import java.sql.*;
+import java.util.concurrent.SynchronousQueue;
 
 public class Main {
     private static final String URL = "jdbc:postgresql://localhost:5432/taxi_service";
@@ -52,5 +54,17 @@ public class Main {
 //        System.out.println(userRoleDAO.findUserRoles(5));
 //        userRoleDAO.save(5, 3);
 //        userRoleDAO.delete(13);
+
+
+//  ----------------  ROLE ---------------------
+
+        RoleDAO roleDAO = new RoleDAO();
+
+//        roleDAO.findAll();
+//        roleDAO.findById(1);
+//        System.out.println(roleDAO.findByRolename("admin"));
+//        roleDAO.save("test2");
+//        roleDAO.update(1, "admin");
+//        roleDAO.delete(8);
     }
 }

@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserRoleDAO implements IUserRoleDAO {
-    private String COLUMN_ID = "id";
-    private String COLUMN_USER_ID = "user_id";
-    private String COLUMN_ROLE_ID = "role_id";
+    private final String COLUMN_ID = "id";
+    private final String COLUMN_USER_ID = "user_id";
+    private final String COLUMN_ROLE_ID = "role_id";
 
     public List<UserRole> findAll() {
         String query = "select * from user_role;";
