@@ -1,13 +1,9 @@
 package com.taxicall.database;
 
-import com.taxicall.database.dao.DriverStatusDAO;
-import com.taxicall.database.dao.RoleDAO;
-import com.taxicall.database.dao.UserRoleDAO;
-import com.taxicall.database.dao.UsersDAO;
+import com.taxicall.database.dao.*;
 import com.taxicall.database.entities.DriverStatus;
 
 import java.sql.*;
-import java.util.concurrent.SynchronousQueue;
 
 public class Main {
     private static final String URL = "jdbc:postgresql://localhost:5432/taxi_service";
@@ -78,5 +74,15 @@ public class Main {
 //        driverStatusDAO.delete(7);
 //        driverStatusDAO.save(7, "busy");
 //        driverStatusDAO.update(7, "available");
+
+//  ----------------  CAR TYPE  ---------------------
+
+        CarTypeDAO carTypeDAO = new CarTypeDAO();
+
+//        carTypeDAO.findAll();
+//          carTypeDAO.findByID(1);
+//        carTypeDAO.save("minibus", "LLAKSL");
+//        carTypeDAO.update(4, "minibus", "new descr");
+        carTypeDAO.delete(4);
     }
 }

@@ -2,8 +2,6 @@ package com.taxicall.database.dao;
 
 import com.taxicall.database.Main;
 import com.taxicall.database.entities.Role;
-import com.taxicall.database.entities.User;
-import com.taxicall.database.entities.UserRole;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

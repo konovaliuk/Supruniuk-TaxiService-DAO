@@ -1,7 +1,7 @@
 package com.taxicall.database.dao;
 
 import com.taxicall.database.Main;
-import com.taxicall.database.entities.DriverStatus;
+import com.taxicall.database.entities.CarType;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -10,46 +10,48 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DriverStatusDAO {
-    private final String COLUMN_DRIVER_ID = "driver_id";
-    private final String COLUMN_STATUS = "status";
+public class CarTypeDAO {
+    private final String COLUMN_ID = "id";
+    private final String COLUMN_TYPENAME = "typename";
+    private final String COLUMN_DESCRIPTION = "description";
 
-    public List<DriverStatus> findAll() {
-        String query = "select * from driver_status;";
+    public List<CarType> findAll() {
+        String query = "select * from car_types;";
 
         Statement statement = null;
         ResultSet resultSet = null;
-        List<DriverStatus> statuses = new ArrayList<>();
+        List<CarType> carTypes = new ArrayList<>();
 
         try {
             Connection connection = Main.connect();
             statement = connection.createStatement();
             resultSet = statement.executeQuery(query);
 
-            System.out.println("driver id" + "\t\t" + "status");
+            System.out.println("id" + "\t\t" + "typename" +  "\t\t" + "description");
 
             while (resultSet.next()) {
-                long id = resultSet.getLong(COLUMN_DRIVER_ID);
-                String status = resultSet.getString(COLUMN_STATUS);
+                long id = resultSet.getLong(COLUMN_ID);
+                String type = resultSet.getString(COLUMN_TYPENAME);
+                String description = resultSet.getString(COLUMN_DESCRIPTION);
 
-                DriverStatus role = new DriverStatus(id, status);
-                statuses.add(role);
-                System.out.println(id + "\t\t\t\t" + status);
+                CarType carType = new CarType(id, type, description);
+                carTypes.add(carType);
+                System.out.println(id + "\t\t" + type + "\t\t\t\t" + description);
             }
         }
         catch (Exception error) {
             error.printStackTrace();
         }
 
-        return statuses;
+        return carTypes;
     }
 
-    public DriverStatus findByDriverID(long driverID) {
-        String query = "select * from driver_status where driver_id=" + driverID;
+    public CarType findByID(long id) {
+        String query = "select * from car_types where id=" + id;
 
         Statement statement = null;
         ResultSet resultSet = null;
-        DriverStatus driverStatus = null;
+        CarType carType = null;
 
         try {
             Connection connection = Main.connect();
@@ -57,23 +59,24 @@ public class DriverStatusDAO {
             resultSet = statement.executeQuery(query);
 
             while(resultSet.next()){
-                long id = resultSet.getLong(COLUMN_DRIVER_ID);
-                String status = resultSet.getString(COLUMN_STATUS);
+                long ind = resultSet.getLong(COLUMN_ID);
+                String type = resultSet.getString(COLUMN_TYPENAME);
+                String description = resultSet.getString(COLUMN_DESCRIPTION);
 
-                driverStatus = new DriverStatus(id, status);
+                carType = new CarType(ind, type, description);
 
-                System.out.println("driver id" + "\t\t" + "status");
-                System.out.println(id + "\t\t\t\t" + status);
+                System.out.println("id" + "\t\t" + "typename" +  "\t\t" + "description");
+                System.out.println(id + "\t\t" + type + "\t\t\t\t" + description);
             }
         } catch (Exception error) {
             error.printStackTrace();
         }
 
-        return driverStatus;
+        return carType;
     }
 
-    public void save(long driverID, String status) {
-        String query = "call set_driver_status("+driverID+",'"+status+"')";
+    public void save(String typename, String description) {
+        String query = "call create_type('"+typename+"','"+description+"')";
 
         Statement statement = null;
 
@@ -87,8 +90,8 @@ public class DriverStatusDAO {
         }
     }
 
-    public void update(long driverID, String status) {
-        String query = "call update_driver_status(" + driverID + "," + "'" + status + "');";
+    public void update(long id, String typename, String description) {
+        String query = "call update_type(" + id + ",'" + typename + "','"+description+"');";
 
         Statement statement = null;
 
@@ -102,7 +105,7 @@ public class DriverStatusDAO {
     }
 
     public void delete(long id) {
-        String query = "call delete_driver_status("+id+")";
+        String query = "call delete_type("+id+")";
 
         Statement statement = null;
 
