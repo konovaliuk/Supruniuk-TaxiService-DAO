@@ -9,7 +9,7 @@ public class User {
     private String created_on;
 
 
-    public User(int id, String name, String surname,
+    public User(long id, String name, String surname,
                 String email, String password_hash, String created_on){
         this.id = id;
         this.name = name;

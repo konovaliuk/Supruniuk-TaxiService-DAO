@@ -1,7 +1,7 @@
 package com.taxicall.database;
 
+import com.taxicall.database.dao.UserRoleDAO;
 import com.taxicall.database.dao.UsersDAO;
-import com.taxicall.database.entities.User;
 
 import java.sql.*;
 
@@ -27,7 +27,7 @@ public class Main {
         Main app = new Main();
         UsersDAO usersDAO = new UsersDAO();
 
-//        USER ACTIONS:
+//   -------------- USER ACTIONS -----------------------------
 
 //        System.out.println(usersDAO.findById(7).getFullName());
 
@@ -42,5 +42,15 @@ public class Main {
 //       User newUser = usersDAO.update(5, "name", "Yuliia");
 //       System.out.println(newUser.getFullName());
 
+
+
+//  ----------------  USER ROLE ---------------------
+
+        UserRoleDAO userRoleDAO = new UserRoleDAO();
+
+//        userRoleDAO.findAll();
+//        System.out.println(userRoleDAO.findUserRoles(5));
+//        userRoleDAO.save(5, 3);
+//        userRoleDAO.delete(13);
     }
 }

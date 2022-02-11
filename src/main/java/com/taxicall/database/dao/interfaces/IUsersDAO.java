@@ -2,10 +2,12 @@ package com.taxicall.database.dao.interfaces;
 
 import com.taxicall.database.entities.User;
 
+import java.util.List;
+
 public interface IUsersDAO {
-    void findAll();
-    User findById(int id);
-    User save(User user, int roleID);
-    User update(int id, String field, String value);
-    void delete(int id);
+    List<User> findAll();
+    User findById(long id);
+    User save(User user, long roleID);
+    User update(long id, String field, String value);
+    void delete(long id);
 }
