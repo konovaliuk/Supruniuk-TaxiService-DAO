@@ -6,6 +6,7 @@ import com.taxicall.database.entities.User;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -102,6 +103,26 @@ public class UsersDAO implements IUsersDAO {
             }
         }
         catch (Exception error) {
+            error.printStackTrace();
+        }
+
+        return newUser;
+    }
+
+    public User update(int ID, String field, String value) {
+        User newUser = null;
+        String query = "call update_user_"+field+"("+ID+","+"'"+value+"');";
+
+        Statement statement = null;
+
+        try {
+            Connection connection = Main.connect();
+            statement = connection.createStatement();
+            statement.execute(query);
+
+            newUser = findById(ID);
+        }
+        catch (SQLException error) {
             error.printStackTrace();
         }
 

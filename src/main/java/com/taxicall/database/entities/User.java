@@ -27,9 +27,13 @@ public class User {
         return name;
     }
 
+    public void setName(String name) { this.name = name; }
+
     public String getSurname() {
         return surname;
     }
+
+    public void setSurname(String surname) { this.surname = surname; }
 
     public String getFullName() {
         return name + " " + surname;
@@ -39,9 +43,13 @@ public class User {
         return email;
     }
 
+    public void setEmail(String email) { this.email = email; }
+
     public String getPasswordHash() {
         return password_hash;
     }
+
+    public void setPasswordHash(String password_hash) {this.password_hash = password_hash; }
 
     public String getCreatedOn() {
         return created_on;

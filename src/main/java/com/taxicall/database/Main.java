@@ -38,5 +38,9 @@ public class Main {
 //        System.out.println(newUser.getFullName());
 
 //        usersDAO.delete(8);
+
+//       User newUser = usersDAO.update(5, "name", "Yuliia");
+//       System.out.println(newUser.getFullName());
+
     }
 }
