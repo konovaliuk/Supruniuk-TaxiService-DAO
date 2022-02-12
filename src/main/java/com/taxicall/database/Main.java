@@ -1,7 +1,6 @@
 package com.taxicall.database;
 
 import com.taxicall.database.dao.*;
-import com.taxicall.database.entities.DriverStatus;
 
 import java.sql.*;
 
@@ -9,6 +8,7 @@ public class Main {
     private static final String URL = "jdbc:postgresql://localhost:5432/taxi_service";
     private static final String USERNAME = "postgres";
     private static final String PASSWORD = "timofey";
+
 
     public static Connection connect() {
         Connection connection = null;
@@ -83,6 +83,7 @@ public class Main {
 //          carTypeDAO.findByID(1);
 //        carTypeDAO.save("minibus", "LLAKSL");
 //        carTypeDAO.update(4, "minibus", "new descr");
-        carTypeDAO.delete(4);
+//        carTypeDAO.delete(4);
+//        carTypeDAO.findByTypename("comfort");
     }
 }

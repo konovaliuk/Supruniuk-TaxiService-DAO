@@ -1,6 +1,7 @@
 package com.taxicall.database.dao;
 
 import com.taxicall.database.Main;
+import com.taxicall.database.dao.interfaces.IRoleDAO;
 import com.taxicall.database.entities.Role;
 
 import java.sql.Connection;
@@ -10,7 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoleDAO {
+public class RoleDAO implements IRoleDAO {
     private final String COLUMN_ID = "id";
     private final String COLUMN_ROLENAME = "rolename";
 

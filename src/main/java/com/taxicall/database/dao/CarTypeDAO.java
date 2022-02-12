@@ -1,6 +1,7 @@
 package com.taxicall.database.dao;
 
 import com.taxicall.database.Main;
+import com.taxicall.database.dao.interfaces.ICarTypeDAO;
 import com.taxicall.database.entities.CarType;
 
 import java.sql.Connection;
@@ -10,7 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CarTypeDAO {
+public class CarTypeDAO implements ICarTypeDAO {
     private final String COLUMN_ID = "id";
     private final String COLUMN_TYPENAME = "typename";
     private final String COLUMN_DESCRIPTION = "description";
@@ -66,7 +67,36 @@ public class CarTypeDAO {
                 carType = new CarType(ind, type, description);
 
                 System.out.println("id" + "\t\t" + "typename" +  "\t\t" + "description");
-                System.out.println(id + "\t\t" + type + "\t\t\t\t" + description);
+                System.out.println(ind + "\t\t" + type + "\t\t\t\t" + description);
+            }
+        } catch (Exception error) {
+            error.printStackTrace();
+        }
+
+        return carType;
+    }
+
+    public CarType findByTypename(String typename) {
+        String query = "select * from car_types where typename='" + typename+"'";
+
+        Statement statement = null;
+        ResultSet resultSet = null;
+        CarType carType = null;
+
+        try {
+            Connection connection = Main.connect();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(query);
+
+            while(resultSet.next()){
+                long ind = resultSet.getLong(COLUMN_ID);
+                String type = resultSet.getString(COLUMN_TYPENAME);
+                String description = resultSet.getString(COLUMN_DESCRIPTION);
+
+                carType = new CarType(ind, type, description);
+
+                System.out.println("id" + "\t\t" + "typename" +  "\t\t" + "description");
+                System.out.println(ind + "\t\t" + type + "\t\t\t\t" + description);
             }
         } catch (Exception error) {
             error.printStackTrace();
