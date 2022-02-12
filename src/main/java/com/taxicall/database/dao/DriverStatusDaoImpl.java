@@ -11,7 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DriverStatusDAO implements IDriverStatusDAO {
+public class DriverStatusDaoImpl implements IDriverStatusDAO {
     private final String COLUMN_DRIVER_ID = "driver_id";
     private final String COLUMN_STATUS = "status";
 

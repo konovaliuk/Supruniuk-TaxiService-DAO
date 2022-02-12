@@ -11,7 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UsersDAO implements IUsersDAO {
+public class UsersDaoImpl implements IUsersDAO {
     private final String COLUMN_ID = "id";
     private final String COLUMN_NAME = "name";
     private final String COLUMN_SURNAME = "surname";

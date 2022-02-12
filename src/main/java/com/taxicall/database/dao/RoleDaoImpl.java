@@ -11,7 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoleDAO implements IRoleDAO {
+public class RoleDaoImpl implements IRoleDAO {
     private final String COLUMN_ID = "id";
     private final String COLUMN_ROLENAME = "rolename";
 

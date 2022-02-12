@@ -11,7 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CarTypeDAO implements ICarTypeDAO {
+public class CarTypeDaoImpl implements ICarTypeDAO {
     private final String COLUMN_ID = "id";
     private final String COLUMN_TYPENAME = "typename";
     private final String COLUMN_DESCRIPTION = "description";

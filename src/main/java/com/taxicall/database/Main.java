@@ -1,6 +1,7 @@
 package com.taxicall.database;
 
 import com.taxicall.database.dao.*;
+import com.taxicall.database.entities.Car;
 
 import java.sql.*;
 
@@ -25,7 +26,7 @@ public class Main {
 
     public static void main(String[] args) {
         Main app = new Main();
-        UsersDAO usersDAO = new UsersDAO();
+        UsersDaoImpl usersDAO = new UsersDaoImpl();
 
 //   -------------- USER ACTIONS -----------------------------
 
@@ -46,7 +47,7 @@ public class Main {
 
 //  ----------------  USER ROLE ---------------------
 
-        UserRoleDAO userRoleDAO = new UserRoleDAO();
+        UserRoleDaoImpl userRoleDAO = new UserRoleDaoImpl();
 
 //        userRoleDAO.findAll();
 //        System.out.println(userRoleDAO.findUserRoles(5));
@@ -56,7 +57,7 @@ public class Main {
 
 //  ----------------  ROLE ---------------------
 
-        RoleDAO roleDAO = new RoleDAO();
+        RoleDaoImpl roleDAO = new RoleDaoImpl();
 
 //        roleDAO.findAll();
 //        roleDAO.findById(1);
@@ -67,7 +68,7 @@ public class Main {
 //
 //  ----------------  DRIVER STATUS  ---------------------
 
-        DriverStatusDAO driverStatusDAO = new DriverStatusDAO();
+        DriverStatusDaoImpl driverStatusDAO = new DriverStatusDaoImpl();
 
 //      driverStatusDAO.findAll();
 //        driverStatusDAO.findByDriverID(7);
@@ -77,7 +78,7 @@ public class Main {
 
 //  ----------------  CAR TYPE  ---------------------
 
-        CarTypeDAO carTypeDAO = new CarTypeDAO();
+        CarTypeDaoImpl carTypeDAO = new CarTypeDaoImpl();
 
 //        carTypeDAO.findAll();
 //          carTypeDAO.findByID(1);
@@ -85,5 +86,20 @@ public class Main {
 //        carTypeDAO.update(4, "minibus", "new descr");
 //        carTypeDAO.delete(4);
 //        carTypeDAO.findByTypename("comfort");
+
+
+//  ----------------  CARS  ---------------------
+
+        CarDaoImpl carDao = new CarDaoImpl();
+
+//        carDao.findAll();
+//        carDao.findByID(3);
+//        carDao.findByDriverID(6);
+//        Car car = new Car(0, 6, "12345",
+//                "new", "red",2, "");
+//        System.out.println(carDao.save(car));
+//        carDao.update(3, "type_id", 1);
+//        carDao.update(3, "color", "pink");
+//        carDao.delete(5);
     }
 }
