@@ -1,7 +1,7 @@
 package com.taxicall.database;
 
 import com.taxicall.database.dao.*;
-import com.taxicall.database.entities.Car;
+import com.taxicall.database.entities.*;
 
 import java.sql.*;
 
@@ -101,5 +101,26 @@ public class Main {
 //        carDao.update(3, "type_id", 1);
 //        carDao.update(3, "color", "pink");
 //        carDao.delete(5);
+
+//  ----------------  ORDERS  ---------------------
+
+        OrderDaoImpl orderDao = new OrderDaoImpl();
+//        orderDao.findAll();
+//        orderDao.findByID(2);
+
+//        OrderCLient orderCLient = new OrderCLient(6, "2306 Chapmans Lane",
+//                "3449 Boggess Street", 67, 1, 1);
+//        System.out.println("id   " + orderDao.save(orderCLient));
+
+        //bug with money type
+//        OrderDispatcher orderDispatcher = new OrderDispatcher(1,7, true, "completed", 347.6);
+//        orderDao.updateByDispatcher(orderDispatcher);
+
+//        OrderDriver orderDriver = new OrderDriver(2,6, "8min", "completed", 3 );
+//        orderDao.updateByDriver(orderDriver);
+//
+//        OrderFeedback feedback =new OrderFeedback(2, "super class", 5);
+//        orderDao.updateFeedback(feedback, "client");
+//        orderDao.updateFeedback(feedback, "driver");
     }
 }
