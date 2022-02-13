@@ -4,10 +4,8 @@ import com.taxicall.database.Main;
 import com.taxicall.database.dao.interfaces.IUsersDAO;
 import com.taxicall.database.entities.User;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,30 +17,30 @@ public class UsersDaoImpl implements IUsersDAO {
     private final String COLUMN_PASSWORD = "password_hash";
     private final String COLUMN_CREATION_DATE = "created_on";
 
+    private User getUser(ResultSet resultSet) throws SQLException {
+        long id = resultSet.getLong(COLUMN_ID);
+        String name = resultSet.getString(COLUMN_NAME);
+        String surname = resultSet.getString(COLUMN_SURNAME);
+        String email = resultSet.getString(COLUMN_EMAIL);
+        String password = resultSet.getString(COLUMN_PASSWORD);
+        String creation_date = resultSet.getString(COLUMN_CREATION_DATE);
+
+        return new User(id, name, surname, email, password, creation_date);
+    }
+
     public List<User> findAll () {
         String query = "select * from users";
-
-        Statement statement = null;
-        ResultSet resultSet = null;
         List<User> userList = new ArrayList<User>();
 
         try {
-            Connection connection = Main.connect();
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(query);
+            ResultSet resultSet = Main.statement.executeQuery(query);
 
             while (resultSet.next()) {
-                long id = resultSet.getLong(COLUMN_ID);
-                String name = resultSet.getString(COLUMN_NAME);
-                String surname = resultSet.getString(COLUMN_SURNAME);
-                String email = resultSet.getString(COLUMN_EMAIL);
-                String password = resultSet.getString(COLUMN_PASSWORD);
-                String creation_date = resultSet.getString(COLUMN_CREATION_DATE);
-
-                User user = new User(id, name, surname, email, password, creation_date);
+                User user = getUser(resultSet);
                 userList.add(user);
-                //System.out.println("name" + user.getName());
-                System.out.println(id + "\t\t" + name + "\t\t" + surname + "\t\t" + email + "\t\t" + password + "\t\t" + creation_date);
+                System.out.println(user.getId() + "\t\t" + user.getName() + "\t\t"
+                        + user.getSurname() + "\t\t" + user.getSurname() + "\t\t"
+                        + user.getPasswordHash() + "\t\t" + user.getCreatedOn());
             }
         }
         catch (Exception error) {
@@ -55,30 +53,20 @@ public class UsersDaoImpl implements IUsersDAO {
     public User findById(long user_id) {
         String query = "select * from users where id=" + user_id;
 
-        Statement statement = null;
-        ResultSet resultSet = null;
         User user = null;
 
         try {
-            Connection connection = Main.connect();
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(query);
+            ResultSet resultSet = Main.statement.executeQuery(query);
 
             while(resultSet.next()){
-                long id = resultSet.getLong(COLUMN_ID);
-                String name = resultSet.getString(COLUMN_NAME);
-                String surname = resultSet.getString(COLUMN_SURNAME);
-                String email = resultSet.getString(COLUMN_EMAIL);
-                String password = resultSet.getString(COLUMN_PASSWORD);
-                String creation_date = resultSet.getString(COLUMN_CREATION_DATE);
-
-                user = new User(id, name, surname, email, password, creation_date);
-                //System.out.println("name" + user.getName());
-                System.out.println(id+"\t\t"+name+"\t\t"+surname+"\t\t"+email+"\t\t"+password+"\t\t"+creation_date);
-            }
+                user = getUser(resultSet);
+                System.out.println(user.getId() + "\t\t" + user.getName() + "\t\t"
+                        + user.getSurname() + "\t\t" + user.getSurname() + "\t\t"
+                        + user.getPasswordHash() + "\t\t" + user.getCreatedOn());            }
         } catch (Exception error) {
             error.printStackTrace();
         }
+
         return user;
     }
 
@@ -91,13 +79,8 @@ public class UsersDaoImpl implements IUsersDAO {
                 +user.getPasswordHash()+"',"
                 +roleID+")";
 
-        Statement statement = null;
-        ResultSet resultSet = null;
-
         try {
-            Connection connection = Main.connect();
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(query);
+            ResultSet resultSet = Main.statement.executeQuery(query);
 
             while (resultSet.next()) {
                 long ind = resultSet.getLong("ind");
@@ -115,13 +98,8 @@ public class UsersDaoImpl implements IUsersDAO {
         User newUser = null;
         String query = "call update_user_"+field+"("+ID+","+"'"+value+"');";
 
-        Statement statement = null;
-
         try {
-            Connection connection = Main.connect();
-            statement = connection.createStatement();
-            statement.execute(query);
-
+            Main.statement.execute(query);
             newUser = findById(ID);
         }
         catch (SQLException error) {
@@ -134,12 +112,8 @@ public class UsersDaoImpl implements IUsersDAO {
     public void delete(long ind) {
         String query = "call delete_user("+ind+")";
 
-        Statement statement = null;
-
         try {
-            Connection connection = Main.connect();
-            statement = connection.createStatement();
-            statement.execute(query);
+            Main.statement.execute(query);
         } catch (Exception error) {
             error.printStackTrace();
         }

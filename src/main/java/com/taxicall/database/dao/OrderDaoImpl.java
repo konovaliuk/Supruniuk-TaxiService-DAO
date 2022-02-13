@@ -3,10 +3,8 @@ package com.taxicall.database.dao;
 import com.taxicall.database.Main;
 import com.taxicall.database.entities.*;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,15 +60,10 @@ public class OrderDaoImpl {
 
     public List<Order> findAll() {
         String query = "select * from orders;";
-
-        Statement statement = null;
-        ResultSet resultSet = null;
         List<Order> orders = new ArrayList<>();
 
         try {
-            Connection connection = Main.connect();
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(query);
+            ResultSet resultSet = Main.statement.executeQuery(query);
 
             System.out.println("id" + "\t\t" + "origin_address" + "\t\t" + "destination_address");
 
@@ -89,15 +82,10 @@ public class OrderDaoImpl {
 
     public Order findByID(long orderID) {
         String query = "select * from orders where id=" + orderID;
-
-        Statement statement = null;
-        ResultSet resultSet = null;
         Order order = null;
 
         try {
-            Connection connection = Main.connect();
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(query);
+            ResultSet resultSet = Main.statement.executeQuery(query);
 
             while(resultSet.next()){
                 order = getOrderObj(resultSet);
@@ -113,15 +101,10 @@ public class OrderDaoImpl {
 
     public Order findByDriverID(long driverID) {
         String query = "select * from orders where driver_id=" + driverID;
-
-        Statement statement = null;
-        ResultSet resultSet = null;
         Order order = null;
 
         try {
-            Connection connection = Main.connect();
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(query);
+            ResultSet resultSet = Main.statement.executeQuery(query);
 
             while(resultSet.next()){
                 order = getOrderObj(resultSet);
@@ -137,15 +120,10 @@ public class OrderDaoImpl {
 
     public Order findByClientID(long clientID) {
         String query = "select * from orders where client_id=" + clientID;
-
-        Statement statement = null;
-        ResultSet resultSet = null;
         Order order = null;
 
         try {
-            Connection connection = Main.connect();
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(query);
+            ResultSet resultSet = Main.statement.executeQuery(query);
 
             while(resultSet.next()){
                 order = getOrderObj(resultSet);
@@ -161,15 +139,10 @@ public class OrderDaoImpl {
 
     public Order findByDispatcherID(long dispatcherID) {
         String query = "select * from orders where dispatcher_id=" + dispatcherID;
-
-        Statement statement = null;
-        ResultSet resultSet = null;
         Order order = null;
 
         try {
-            Connection connection = Main.connect();
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(query);
+            ResultSet resultSet = Main.statement.executeQuery(query);
 
             while(resultSet.next()){
                 order = getOrderObj(resultSet);
@@ -191,13 +164,8 @@ public class OrderDaoImpl {
                 +clientInfo.getNumberOfPeople()+","
                 +clientInfo.getCarTypeId()+")";
 
-        Statement statement = null;
-        ResultSet resultSet = null;
-
         try {
-            Connection connection = Main.connect();
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(query);
+            ResultSet resultSet = Main.statement.executeQuery(query);
 
             while (resultSet.next()) {
                 long ind = resultSet.getLong("ind");
@@ -215,12 +183,9 @@ public class OrderDaoImpl {
         String query = "call update_order_dispatcher("+dispatcherInfo.getID()
                 +","+dispatcherInfo.getDispatcherID()+","+ dispatcherInfo.isApproved() + ",'" +
                 dispatcherInfo.getTotalPayment() +"','"+ dispatcherInfo.orderStatus()+"');";
-        Statement statement = null;
 
         try {
-            Connection connection = Main.connect();
-            statement = connection.createStatement();
-            statement.execute(query);
+            Main.statement.execute(query);
         }
         catch (SQLException error) {
             error.printStackTrace();
@@ -231,12 +196,9 @@ public class OrderDaoImpl {
         String query = "call take_order_driver("+driverInfo.getID()
                 +","+driverInfo.getDriverID()+",'"+ driverInfo.getWaitingTime() + "','" +
                 driverInfo.getOrderStatus() +"',"+ driverInfo.getCarId()+");";
-        Statement statement = null;
 
         try {
-            Connection connection = Main.connect();
-            statement = connection.createStatement();
-            statement.execute(query);
+            Main.statement.execute(query);
         }
         catch (SQLException error) {
             error.printStackTrace();
@@ -246,12 +208,9 @@ public class OrderDaoImpl {
     public void updateFeedback(OrderFeedback feedback, String role) {
         String query = "call grade_order_"+role+"("+feedback.getID()
                 +",'"+feedback.getComment()+"',"+ feedback.getGrade() + ");";
-        Statement statement = null;
 
         try {
-            Connection connection = Main.connect();
-            statement = connection.createStatement();
-            statement.execute(query);
+            Main.statement.execute(query);
         }
         catch (SQLException error) {
             error.printStackTrace();

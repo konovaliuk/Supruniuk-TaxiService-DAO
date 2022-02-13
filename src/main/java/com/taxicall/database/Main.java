@@ -1,7 +1,6 @@
 package com.taxicall.database;
 
 import com.taxicall.database.dao.*;
-import com.taxicall.database.entities.*;
 
 import java.sql.*;
 
@@ -10,25 +9,26 @@ public class Main {
     private static final String USERNAME = "postgres";
     private static final String PASSWORD = "timofey";
 
+    public static Connection connection = null;
+    public static Statement statement = null;
 
-    public static Connection connect() {
-        Connection connection = null;
-
+    private void connect() {
         try {
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            statement = connection.createStatement();
             System.out.println("Connected to the PostgreSQL server successfully.");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
-        return connection;
     }
 
     public static void main(String[] args) {
         Main app = new Main();
+        app.connect();
+
         UsersDaoImpl usersDAO = new UsersDaoImpl();
 
-//   -------------- USER ACTIONS -----------------------------
+//   ---------------------- USER ACTIONS -----------------------------
 
 //        System.out.println(usersDAO.findById(7).getFullName());
 
@@ -49,7 +49,7 @@ public class Main {
 
         UserRoleDaoImpl userRoleDAO = new UserRoleDaoImpl();
 
-//        userRoleDAO.findAll();
+        userRoleDAO.findAll();
 //        System.out.println(userRoleDAO.findUserRoles(5));
 //        userRoleDAO.save(5, 3);
 //        userRoleDAO.delete(13);
@@ -59,7 +59,7 @@ public class Main {
 
         RoleDaoImpl roleDAO = new RoleDaoImpl();
 
-//        roleDAO.findAll();
+        roleDAO.findAll();
 //        roleDAO.findById(1);
 //        System.out.println(roleDAO.findByRolename("admin"));
 //        roleDAO.save("test2");
@@ -70,7 +70,7 @@ public class Main {
 
         DriverStatusDaoImpl driverStatusDAO = new DriverStatusDaoImpl();
 
-//      driverStatusDAO.findAll();
+      driverStatusDAO.findAll();
 //        driverStatusDAO.findByDriverID(7);
 //        driverStatusDAO.delete(7);
 //        driverStatusDAO.save(7, "busy");
@@ -80,7 +80,7 @@ public class Main {
 
         CarTypeDaoImpl carTypeDAO = new CarTypeDaoImpl();
 
-//        carTypeDAO.findAll();
+        carTypeDAO.findAll();
 //          carTypeDAO.findByID(1);
 //        carTypeDAO.save("minibus", "LLAKSL");
 //        carTypeDAO.update(4, "minibus", "new descr");
@@ -92,7 +92,7 @@ public class Main {
 
         CarDaoImpl carDao = new CarDaoImpl();
 
-//        carDao.findAll();
+        carDao.findAll();
 //        carDao.findByID(3);
 //        carDao.findByDriverID(6);
 //        Car car = new Car(0, 6, "12345",
@@ -122,5 +122,12 @@ public class Main {
 //        OrderFeedback feedback =new OrderFeedback(2, "super class", 5);
 //        orderDao.updateFeedback(feedback, "client");
 //        orderDao.updateFeedback(feedback, "driver");
+
+        try {
+            connection.close();
+            System.out.println("Connection closed successfully.");
+        }catch (SQLException e) {
+            System.out.println("close error");
+        }
     }
 }

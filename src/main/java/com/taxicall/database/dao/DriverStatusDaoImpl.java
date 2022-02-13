@@ -4,10 +4,8 @@ import com.taxicall.database.Main;
 import com.taxicall.database.dao.interfaces.IDriverStatusDAO;
 import com.taxicall.database.entities.DriverStatus;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,27 +13,24 @@ public class DriverStatusDaoImpl implements IDriverStatusDAO {
     private final String COLUMN_DRIVER_ID = "driver_id";
     private final String COLUMN_STATUS = "status";
 
+    private DriverStatus getDriverStatus(ResultSet resultSet) throws SQLException {
+        long id = resultSet.getLong(COLUMN_DRIVER_ID);
+        String status = resultSet.getString(COLUMN_STATUS);
+
+        return new DriverStatus(id, status);
+    }
+
     public List<DriverStatus> findAll() {
         String query = "select * from driver_status;";
-
-        Statement statement = null;
-        ResultSet resultSet = null;
         List<DriverStatus> statuses = new ArrayList<>();
 
         try {
-            Connection connection = Main.connect();
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(query);
-
+            ResultSet resultSet = Main.statement.executeQuery(query);
             System.out.println("driver id" + "\t\t" + "status");
-
             while (resultSet.next()) {
-                long id = resultSet.getLong(COLUMN_DRIVER_ID);
-                String status = resultSet.getString(COLUMN_STATUS);
-
-                DriverStatus role = new DriverStatus(id, status);
-                statuses.add(role);
-                System.out.println(id + "\t\t\t\t" + status);
+                DriverStatus driverStatus = getDriverStatus(resultSet);
+                statuses.add(driverStatus);
+                System.out.println(driverStatus.getId() + "\t\t\t\t" + driverStatus.getDriverStatus());
             }
         }
         catch (Exception error) {
@@ -47,24 +42,15 @@ public class DriverStatusDaoImpl implements IDriverStatusDAO {
 
     public DriverStatus findByDriverID(long driverID) {
         String query = "select * from driver_status where driver_id=" + driverID;
-
-        Statement statement = null;
-        ResultSet resultSet = null;
         DriverStatus driverStatus = null;
 
         try {
-            Connection connection = Main.connect();
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(query);
+            ResultSet resultSet = Main.statement.executeQuery(query);
 
             while(resultSet.next()){
-                long id = resultSet.getLong(COLUMN_DRIVER_ID);
-                String status = resultSet.getString(COLUMN_STATUS);
-
-                driverStatus = new DriverStatus(id, status);
-
+                driverStatus = getDriverStatus(resultSet);
                 System.out.println("driver id" + "\t\t" + "status");
-                System.out.println(id + "\t\t\t\t" + status);
+                System.out.println(driverStatus.getId() + "\t\t\t\t" + driverStatus.getDriverStatus());
             }
         } catch (Exception error) {
             error.printStackTrace();
@@ -76,12 +62,8 @@ public class DriverStatusDaoImpl implements IDriverStatusDAO {
     public void save(long driverID, String status) {
         String query = "call set_driver_status("+driverID+",'"+status+"')";
 
-        Statement statement = null;
-
         try {
-            Connection connection = Main.connect();
-            statement = connection.createStatement();
-            statement.execute(query);
+            Main.statement.execute(query);
         }
         catch (Exception error) {
             error.printStackTrace();
@@ -91,12 +73,8 @@ public class DriverStatusDaoImpl implements IDriverStatusDAO {
     public void update(long driverID, String status) {
         String query = "call update_driver_status(" + driverID + "," + "'" + status + "');";
 
-        Statement statement = null;
-
         try {
-            Connection connection = Main.connect();
-            statement = connection.createStatement();
-            statement.execute(query);
+            Main.statement.execute(query);
         } catch (SQLException error) {
             error.printStackTrace();
         }
@@ -105,12 +83,8 @@ public class DriverStatusDaoImpl implements IDriverStatusDAO {
     public void delete(long id) {
         String query = "call delete_driver_status("+id+")";
 
-        Statement statement = null;
-
         try {
-            Connection connection = Main.connect();
-            statement = connection.createStatement();
-            statement.execute(query);
+            Main.statement.execute(query);
         } catch (Exception error) {
             error.printStackTrace();
         }
