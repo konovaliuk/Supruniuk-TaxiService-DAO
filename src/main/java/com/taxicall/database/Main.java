@@ -5,16 +5,13 @@ import com.taxicall.database.dao.*;
 import java.sql.*;
 
 public class Main {
-    private static final String URL = "jdbc:postgresql://localhost:5432/taxi_service";
-    private static final String USERNAME = "postgres";
-    private static final String PASSWORD = "timofey";
-
     public static Connection connection = null;
     public static Statement statement = null;
 
     private void connect() {
         try {
-            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            ConnectionPool connectionPool = ConnectionPool.getInstance();
+            connection = connectionPool.getConnection();
             statement = connection.createStatement();
             System.out.println("Connected to the PostgreSQL server successfully.");
         } catch (SQLException e) {
@@ -131,3 +128,13 @@ public class Main {
         }
     }
 }
+
+//    private void connect() {
+//        try {
+//            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+//            statement = connection.createStatement();
+//            System.out.println("Connected to the PostgreSQL server successfully.");
+//        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
+//        }
+//    }
