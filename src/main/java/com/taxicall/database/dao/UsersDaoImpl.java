@@ -42,6 +42,8 @@ public class UsersDaoImpl implements IUsersDAO {
                         + user.getSurname() + "\t\t" + user.getSurname() + "\t\t"
                         + user.getPasswordHash() + "\t\t" + user.getCreatedOn());
             }
+
+            resultSet.close();
         }
         catch (Exception error) {
             error.printStackTrace();
@@ -62,7 +64,9 @@ public class UsersDaoImpl implements IUsersDAO {
                 user = getUser(resultSet);
                 System.out.println(user.getId() + "\t\t" + user.getName() + "\t\t"
                         + user.getSurname() + "\t\t" + user.getSurname() + "\t\t"
-                        + user.getPasswordHash() + "\t\t" + user.getCreatedOn());            }
+                        + user.getPasswordHash() + "\t\t" + user.getCreatedOn());
+            }
+            resultSet.close();
         } catch (Exception error) {
             error.printStackTrace();
         }
@@ -86,6 +90,7 @@ public class UsersDaoImpl implements IUsersDAO {
                 long ind = resultSet.getLong("ind");
                 newUser = findById(ind);
             }
+            resultSet.close();
         }
         catch (Exception error) {
             error.printStackTrace();

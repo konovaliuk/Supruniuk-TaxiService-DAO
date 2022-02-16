@@ -31,6 +31,8 @@ public class RoleDaoImpl implements IRoleDAO {
                 roles.add(role);
                 System.out.println(role.getId() + "\t\t" + role.getRolename());
             }
+
+            resultSet.close();
         }
         catch (Exception error) {
             error.printStackTrace();
@@ -50,6 +52,8 @@ public class RoleDaoImpl implements IRoleDAO {
                 role = getRole(resultSet);
                 System.out.println(role.getId() + "\t\t" + role.getRolename());
             }
+
+            resultSet.close();
         } catch (Exception error) {
             error.printStackTrace();
         }
@@ -68,6 +72,8 @@ public class RoleDaoImpl implements IRoleDAO {
                 role = getRole(resultSet);
                 System.out.println(role.getId() + "\t\t" + role.getRolename());
             }
+
+            resultSet.close();
         }
         catch (Exception error) {
             error.printStackTrace();

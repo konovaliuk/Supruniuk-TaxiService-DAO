@@ -32,6 +32,8 @@ public class DriverStatusDaoImpl implements IDriverStatusDAO {
                 statuses.add(driverStatus);
                 System.out.println(driverStatus.getId() + "\t\t\t\t" + driverStatus.getDriverStatus());
             }
+
+            resultSet.close();
         }
         catch (Exception error) {
             error.printStackTrace();
@@ -52,6 +54,8 @@ public class DriverStatusDaoImpl implements IDriverStatusDAO {
                 System.out.println("driver id" + "\t\t" + "status");
                 System.out.println(driverStatus.getId() + "\t\t\t\t" + driverStatus.getDriverStatus());
             }
+
+            resultSet.close();
         } catch (Exception error) {
             error.printStackTrace();
         }

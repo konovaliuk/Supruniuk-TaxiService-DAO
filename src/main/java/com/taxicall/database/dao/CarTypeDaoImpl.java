@@ -37,6 +37,8 @@ public class CarTypeDaoImpl implements ICarTypeDAO {
                 System.out.println(carType.getId() + "\t\t" + carType.getTypename()
                         + "\t\t\t\t" + carType.getDescription());
             }
+
+            resultSet.close();
         }
         catch (Exception error) {
             error.printStackTrace();
@@ -59,6 +61,8 @@ public class CarTypeDaoImpl implements ICarTypeDAO {
                 System.out.println(carType.getId() + "\t\t" + carType.getTypename()
                         + "\t\t\t\t" + carType.getDescription());
             }
+
+            resultSet.close();
         } catch (Exception error) {
             error.printStackTrace();
         }
@@ -80,6 +84,8 @@ public class CarTypeDaoImpl implements ICarTypeDAO {
                 System.out.println(carType.getId() + "\t\t" + carType.getTypename()
                         + "\t\t\t\t" + carType.getDescription());
             }
+
+            resultSet.close();
         } catch (Exception error) {
             error.printStackTrace();
         }

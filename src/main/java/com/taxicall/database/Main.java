@@ -1,6 +1,7 @@
 package com.taxicall.database;
 
 import com.taxicall.database.dao.*;
+import com.taxicall.database.entities.Car;
 
 import java.sql.*;
 
@@ -92,8 +93,8 @@ public class Main {
         carDao.findAll();
 //        carDao.findByID(3);
 //        carDao.findByDriverID(6);
-//        Car car = new Car(0, 6, "12345",
-//                "new", "red",2, "");
+//        Car car = new Car(0, 7, "5t67f3",
+//                "super", "black",2, "");
 //        System.out.println(carDao.save(car));
 //        carDao.update(3, "type_id", 1);
 //        carDao.update(3, "color", "pink");
@@ -122,6 +123,7 @@ public class Main {
 
         try {
             connection.close();
+            statement.close();
             System.out.println("Connection closed successfully.");
         }catch (SQLException e) {
             System.out.println("close error");

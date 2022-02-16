@@ -1,6 +1,7 @@
 package com.taxicall.database.dao;
 
 import com.taxicall.database.Main;
+import com.taxicall.database.dao.interfaces.IOrderDAO;
 import com.taxicall.database.entities.*;
 
 import java.sql.ResultSet;
@@ -8,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderDaoImpl {
+public class OrderDaoImpl implements IOrderDAO {
     private final String COLUMN_ID = "id";
     private final String COLUMN_CLIENT_ID = "client_id";
     private final String COLUMN_ORIGIN_ADDRESS = "origin_address";
@@ -72,6 +73,8 @@ public class OrderDaoImpl {
                 orders.add(order);
                 System.out.println(order.getId() + "\t\t" + order.getOriginAddress() + "\t\t" + order.getDestinationAddress());
             }
+
+            resultSet.close();
         }
         catch (Exception error) {
             error.printStackTrace();
@@ -92,6 +95,8 @@ public class OrderDaoImpl {
                 System.out.println("id" + "\t\t" + "origin_address" + "\t\t" + "destination_address");
                 System.out.println(order.getId() + "\t\t" + order.getOriginAddress()+"\t\t"+order.getDestinationAddress());
             }
+
+            resultSet.close();
         } catch (Exception error) {
             error.printStackTrace();
         }
@@ -99,61 +104,70 @@ public class OrderDaoImpl {
         return order;
     }
 
-    public Order findByDriverID(long driverID) {
+    public List<Order> findByDriverID(long driverID) {
         String query = "select * from orders where driver_id=" + driverID;
-        Order order = null;
+        List<Order> orders = new ArrayList<>();
 
         try {
             ResultSet resultSet = Main.statement.executeQuery(query);
 
             while(resultSet.next()){
-                order = getOrderObj(resultSet);
+                Order order = getOrderObj(resultSet);
+                orders.add(order);
                 System.out.println("id" + "\t\t" + "origin_address" + "\t\t" + "destination_address");
                 System.out.println(order.getId() + "\t\t" + order.getOriginAddress()+"\t\t"+order.getDestinationAddress());
             }
+
+            resultSet.close();
         } catch (Exception error) {
             error.printStackTrace();
         }
 
-        return order;
+        return orders;
     }
 
-    public Order findByClientID(long clientID) {
+    public List<Order> findByClientID(long clientID) {
         String query = "select * from orders where client_id=" + clientID;
-        Order order = null;
+        List<Order> orders = new ArrayList<>();
 
         try {
             ResultSet resultSet = Main.statement.executeQuery(query);
 
             while(resultSet.next()){
-                order = getOrderObj(resultSet);
+                Order order = getOrderObj(resultSet);
+                orders.add(order);
                 System.out.println("id" + "\t\t" + "origin_address" + "\t\t" + "destination_address");
                 System.out.println(order.getId() + "\t\t" + order.getOriginAddress()+"\t\t"+order.getDestinationAddress());
             }
+
+            resultSet.close();
         } catch (Exception error) {
             error.printStackTrace();
         }
 
-        return order;
+        return orders;
     }
 
-    public Order findByDispatcherID(long dispatcherID) {
+    public List<Order> findByDispatcherID(long dispatcherID) {
         String query = "select * from orders where dispatcher_id=" + dispatcherID;
-        Order order = null;
+        List<Order> orders = new ArrayList<>();
 
         try {
             ResultSet resultSet = Main.statement.executeQuery(query);
 
             while(resultSet.next()){
-                order = getOrderObj(resultSet);
+                Order order = getOrderObj(resultSet);
+                orders.add(order);
                 System.out.println("id" + "\t\t" + "origin_address" + "\t\t" + "destination_address");
                 System.out.println(order.getId() + "\t\t" + order.getOriginAddress()+"\t\t"+order.getDestinationAddress());
             }
+
+            resultSet.close();
         } catch (Exception error) {
             error.printStackTrace();
         }
 
-        return order;
+        return orders;
     }
     public long save(OrderCLient clientInfo) {
         long newOrderID = 0;
@@ -171,6 +185,8 @@ public class OrderDaoImpl {
                 long ind = resultSet.getLong("ind");
                 newOrderID = ind;
             }
+
+            resultSet.close();
         }
         catch (Exception error) {
             error.printStackTrace();

@@ -49,6 +49,8 @@ public class CarDaoImpl implements ICarDAO {
                         + "\t\t\t" + car.getColor() + "\t\t\t" + car.getTypeID() + "\t\t\t"
                         + car.getCreationDate());
             }
+
+            resultSet.close();
         }
         catch (Exception error) {
             error.printStackTrace();
@@ -71,6 +73,8 @@ public class CarDaoImpl implements ICarDAO {
                         + "\t\t\t" + car.getColor() + "\t\t\t" + car.getTypeID() + "\t\t\t"
                         + car.getCreationDate());
             }
+
+            resultSet.close();
         } catch (Exception error) {
             error.printStackTrace();
         }
@@ -97,6 +101,8 @@ public class CarDaoImpl implements ICarDAO {
                         + "\t\t\t" + car.getColor() + "\t\t\t" + car.getTypeID() + "\t\t\t"
                         + car.getCreationDate());
             }
+
+            resultSet.close();
         }
         catch (Exception error) {
             error.printStackTrace();
@@ -121,6 +127,8 @@ public class CarDaoImpl implements ICarDAO {
                 long ind = resultSet.getLong("ind");
                 newCarID = ind;
             }
+
+            resultSet.close();
         }
         catch (Exception error) {
             error.printStackTrace();

@@ -36,6 +36,7 @@ public class UserRoleDaoImpl implements IUserRoleDAO {
                 userRoleList.add(userRole);
                 System.out.println(userRole.getRoleID() + "\t\t" + userRole.getUserID() + "\t\t" + userRole.getRoleID());
             }
+            resultSet.close();
         }
         catch (Exception error) {
             error.printStackTrace();
@@ -55,6 +56,8 @@ public class UserRoleDaoImpl implements IUserRoleDAO {
                 userRole = getUserRole(resultSet);
                 System.out.println(userRole.getRoleID() + "\t\t" + userRole.getUserID() + "\t\t" + userRole.getRoleID());
             }
+
+            resultSet.close();
         } catch (Exception error) {
             error.printStackTrace();
         }
@@ -76,6 +79,8 @@ public class UserRoleDaoImpl implements IUserRoleDAO {
                 userRoleList.add(userRole);
                 System.out.println(userRole.getRoleID() + "\t\t" + userRole.getUserID() + "\t\t" + userRole.getRoleID());
             }
+
+            resultSet.close();
         } catch (Exception error) {
             error.printStackTrace();
         }

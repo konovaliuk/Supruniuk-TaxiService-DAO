@@ -31,7 +31,7 @@ public class ConnectionPool {
             source.setDatabaseName("taxi_service");
             source.setUser(USERNAME);
             source.setPassword(PASSWORD);
-            source.setMaxConnections(10);
+            //source.setMaxConnections(10);
             connection = source.getConnection();
         } catch (SQLException e) {
             e.printStackTrace();
