@@ -1,46 +1,34 @@
 package com.taxicall.database;
 
 import com.taxicall.database.dao.*;
-import com.taxicall.database.entities.Car;
-
-import java.sql.*;
 
 public class Main {
-    public static Connection connection = null;
-    public static Statement statement = null;
-
-    private void connect() {
-        try {
-            ConnectionPool connectionPool = ConnectionPool.getInstance();
-            connection = connectionPool.getConnection();
-            statement = connection.createStatement();
-            System.out.println("Connected to the PostgreSQL server successfully.");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
 
     public static void main(String[] args) {
-        Main app = new Main();
-        app.connect();
+//        Main app = new Main();
 
         UsersDaoImpl usersDAO = new UsersDaoImpl();
-
+//        User user = new User(0, "Shelly",
+//                "Wilson","shelly.wilson@example.com",
+//                "ziggy1", null);
+//        usersDAO.save(user, 3);
+        usersDAO.findAll();
 //   ---------------------- USER ACTIONS -----------------------------
 
-//        System.out.println(usersDAO.findById(7).getFullName());
+//        System.out.println(newUser.getFullName());
 
-//        User user = new User(0, "Ellen",
-//                "Burns","ellen.burns@example.com",
-//                "1945", null);
+
 //        User newUser = usersDAO.save(user, 1);
 //        System.out.println(newUser.getFullName());
 
-//        usersDAO.delete(8);
+//        System.out.println("before");
+//        usersDAO.findAll();
+//        usersDAO.delete(18);
+//        System.out.println("after");
+//        usersDAO.findAll();
 
 //       User newUser = usersDAO.update(5, "name", "Yuliia");
 //       System.out.println(newUser.getFullName());
-
 
 
 //  ----------------  USER ROLE ---------------------
@@ -55,9 +43,9 @@ public class Main {
 
 //  ----------------  ROLE ---------------------
 
-        RoleDaoImpl roleDAO = new RoleDaoImpl();
-
-        roleDAO.findAll();
+//        RoleDaoImpl roleDAO = new RoleDaoImpl();
+//
+//        roleDAO.findAll();
 //        roleDAO.findById(1);
 //        System.out.println(roleDAO.findByRolename("admin"));
 //        roleDAO.save("test2");
@@ -65,10 +53,10 @@ public class Main {
 //        roleDAO.delete(8);
 //
 //  ----------------  DRIVER STATUS  ---------------------
-
-        DriverStatusDaoImpl driverStatusDAO = new DriverStatusDaoImpl();
-
-      driverStatusDAO.findAll();
+//
+//        DriverStatusDaoImpl driverStatusDAO = new DriverStatusDaoImpl();
+//
+//      driverStatusDAO.findAll();
 //        driverStatusDAO.findByDriverID(7);
 //        driverStatusDAO.delete(7);
 //        driverStatusDAO.save(7, "busy");
@@ -76,9 +64,9 @@ public class Main {
 
 //  ----------------  CAR TYPE  ---------------------
 
-        CarTypeDaoImpl carTypeDAO = new CarTypeDaoImpl();
-
-        carTypeDAO.findAll();
+//        CarTypeDaoImpl carTypeDAO = new CarTypeDaoImpl();
+//
+//        carTypeDAO.findAll();
 //          carTypeDAO.findByID(1);
 //        carTypeDAO.save("minibus", "LLAKSL");
 //        carTypeDAO.update(4, "minibus", "new descr");
@@ -88,9 +76,9 @@ public class Main {
 
 //  ----------------  CARS  ---------------------
 
-        CarDaoImpl carDao = new CarDaoImpl();
-
-        carDao.findAll();
+//        CarDaoImpl carDao = new CarDaoImpl();
+//
+//        carDao.findAll();
 //        carDao.findByID(3);
 //        carDao.findByDriverID(6);
 //        Car car = new Car(0, 7, "5t67f3",
@@ -102,7 +90,7 @@ public class Main {
 
 //  ----------------  ORDERS  ---------------------
 
-        OrderDaoImpl orderDao = new OrderDaoImpl();
+//        OrderDaoImpl orderDao = new OrderDaoImpl();
 //        orderDao.findAll();
 //        orderDao.findByID(2);
 
@@ -122,11 +110,10 @@ public class Main {
 //        orderDao.updateFeedback(feedback, "driver");
 
         try {
-            connection.close();
-            statement.close();
+            usersDAO.closeConnection();
             System.out.println("Connection closed successfully.");
-        }catch (SQLException e) {
-            System.out.println("close error");
+        } catch (Error e) {
+            System.err.println("Connection close error");
         }
     }
 }
@@ -138,5 +125,17 @@ public class Main {
 //            System.out.println("Connected to the PostgreSQL server successfully.");
 //        } catch (SQLException e) {
 //            System.out.println(e.getMessage());
+//        }
+//    }
+
+//    public static Connection connection = null;
+//
+//    private void connect() {
+//        try {
+//            ConnectionPool connectionPool = ConnectionPool.getInstance();
+//            connection = connectionPool.getConnection("data");
+//            System.out.println("Connected to the PostgreSQL server successfully.");
+//        } catch (Error e){
+//            System.out.println("error");
 //        }
 //    }

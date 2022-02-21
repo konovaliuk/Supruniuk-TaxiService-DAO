@@ -27,7 +27,7 @@ public class Order {
                  int distance, int number_of_people, long car_type_id, String creation_date,
                  String client_comment, int client_grade, long driver_id, String waiting_time,
                  String driver_comment, int driver_grade, long car_id, long dispatcher_id,
-                 boolean approved, String order_status, double total_payment){
+                 boolean approved, String order_status, double total_payment) {
         this.id = id;
         this.client_id = client_id;
         this.origin_address = origin_address;
@@ -52,28 +52,77 @@ public class Order {
     public long getId() {
         return id;
     }
-    public long getCientID() { return client_id; }
-    public String getOriginAddress() { return origin_address; }
-    public String getDestinationAddress() { return destination_address;}
+
+    public long getCientID() {
+        return client_id;
+    }
+
+    public String getOriginAddress() {
+        return origin_address;
+    }
+
+    public String getDestinationAddress() {
+        return destination_address;
+    }
+
     public int getDistance() {
         return distance;
     }
-    public int getNumberOfPeople() { return number_of_people; }
-    public long getCarTypeId() { return  car_type_id; }
 
-    public String getCreationDate() { return creation_date; }
-    public int getClientGrade() { return client_grade; }
-    public String getClientComment() { return client_comment; }
+    public int getNumberOfPeople() {
+        return number_of_people;
+    }
 
-    public long getDriverID() {return driver_id;}
-    public String getWaitingTime() { return waiting_time; }
-    public String getDriverComment() { return driver_comment; }
-    public int getDriverGrade() { return driver_grade; }
-    public long getCarId() { return car_id;}
+    public long getCarTypeId() {
+        return car_type_id;
+    }
 
-    public long getDispatcherID() {return dispatcher_id;}
-    public boolean isApproved(){ return approved;}
-    public String getOrderStatus() {return order_status;}
-    public double getTotalPayment() { return total_payment; }
+    public String getCreationDate() {
+        return creation_date;
+    }
+
+    public int getClientGrade() {
+        return client_grade;
+    }
+
+    public String getClientComment() {
+        return client_comment;
+    }
+
+    public long getDriverID() {
+        return driver_id;
+    }
+
+    public String getWaitingTime() {
+        return waiting_time;
+    }
+
+    public String getDriverComment() {
+        return driver_comment;
+    }
+
+    public int getDriverGrade() {
+        return driver_grade;
+    }
+
+    public long getCarId() {
+        return car_id;
+    }
+
+    public long getDispatcherID() {
+        return dispatcher_id;
+    }
+
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public String getOrderStatus() {
+        return order_status;
+    }
+
+    public double getTotalPayment() {
+        return total_payment;
+    }
 
 }

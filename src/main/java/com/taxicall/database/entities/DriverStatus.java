@@ -4,7 +4,7 @@ public class DriverStatus {
     private long driver_id;
     private String status;
 
-    public DriverStatus(long driver_id, String status){
+    public DriverStatus(long driver_id, String status) {
         this.driver_id = driver_id;
         this.status = status;
     }
@@ -17,5 +17,7 @@ public class DriverStatus {
         return status;
     }
 
-    public void setDriverStatus(String status) { this.status = status; }
+    public void setDriverStatus(String status) {
+        this.status = status;
+    }
 }

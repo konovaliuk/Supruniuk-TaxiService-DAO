@@ -16,9 +16,23 @@ public class OrderDispatcher {
         this.total_payment = total_payment;
     }
 
-    public long getID() {return id;}
-    public long getDispatcherID() {return dispatcher_id;}
-    public boolean isApproved(){ return approved;}
-    public String orderStatus() {return order_status;}
-    public double getTotalPayment() { return total_payment; }
+    public long getID() {
+        return id;
+    }
+
+    public long getDispatcherID() {
+        return dispatcher_id;
+    }
+
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public String orderStatus() {
+        return order_status;
+    }
+
+    public double getTotalPayment() {
+        return total_payment;
+    }
 }

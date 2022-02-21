@@ -5,13 +5,21 @@ public class OrderFeedback {
     private String comment;
     private int grade;
 
-    public OrderFeedback(long id, String comment, int grade){
+    public OrderFeedback(long id, String comment, int grade) {
         this.id = id;
         this.comment = comment;
         this.grade = grade;
     }
 
-    public long getID() {return id;}
-    public String getComment() { return comment; }
-    public int getGrade() { return grade; }
+    public long getID() {
+        return id;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public int getGrade() {
+        return grade;
+    }
 }

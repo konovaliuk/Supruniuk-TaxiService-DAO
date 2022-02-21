@@ -10,23 +10,23 @@ public class ConnectionPool {
     private static final String USERNAME = "postgres";
     private static final String PASSWORD = "timofey";
 
-    private ConnectionPool(){
+    public ConnectionPool() {
 
     }
 
     private static ConnectionPool instance = null;
 
-    public static ConnectionPool getInstance(){
-        if (instance==null)
+    public static ConnectionPool getInstance() {
+        if (instance == null)
             instance = new ConnectionPool();
         return instance;
     }
 
-    public Connection getConnection(){
+    public Connection getConnection(String dataSourceName) {
         Connection connection = null;
         try {
             PGPoolingDataSource source = new PGPoolingDataSource();
-            source.setDataSourceName("A Data Source");
+            source.setDataSourceName(dataSourceName);
             source.setServerName("localhost");
             source.setDatabaseName("taxi_service");
             source.setUser(USERNAME);

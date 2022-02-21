@@ -5,7 +5,7 @@ public class CarType {
     private String typename;
     private String description;
 
-    public CarType(long id, String typename, String description){
+    public CarType(long id, String typename, String description) {
         this.id = id;
         this.typename = typename;
         this.description = description;
@@ -19,12 +19,16 @@ public class CarType {
         return typename;
     }
 
-    public void setTypename(String typename) { this.typename = typename; }
+    public void setTypename(String typename) {
+        this.typename = typename;
+    }
 
     public String getDescription() {
         return typename;
     }
 
-    public void setDescription(String description) { this.description = description; }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
 }

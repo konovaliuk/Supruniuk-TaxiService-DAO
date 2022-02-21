@@ -4,7 +4,7 @@ public class Role {
     private long id;
     private String rolename;
 
-    public Role(long id, String rolename){
+    public Role(long id, String rolename) {
         this.id = id;
         this.rolename = rolename;
     }
@@ -17,6 +17,8 @@ public class Role {
         return rolename;
     }
 
-    public void setRolename(String name) { this.rolename = rolename; }
+    public void setRolename(String name) {
+        this.rolename = rolename;
+    }
 
 }
