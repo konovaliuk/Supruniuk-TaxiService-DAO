@@ -1,6 +1,7 @@
 package com.taxicall.database.dao;
 
 import com.taxicall.database.ConnectionPool;
+import com.taxicall.database.dao.dbColumns.CarTypeDB;
 import com.taxicall.database.dao.interfaces.ICarTypeDAO;
 import com.taxicall.database.entities.CarType;
 
@@ -12,28 +13,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CarTypeDaoImpl implements ICarTypeDAO {
-    String columnId = "id";
-    String columnTypename = "typename";
-    String columnDescription = "description";
-
     public Connection connection = null;
-    public Statement statement = null;
 
     public CarTypeDaoImpl() {
         try {
-            ConnectionPool connectionPool = new ConnectionPool();
+            ConnectionPool connectionPool = ConnectionPool.getInstance();
             connection = connectionPool.getConnection("Car Type Data Source");
-            statement = connection.createStatement();
             System.out.println("Connected to the PostgreSQL server successfully.");
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.err.println(e.getMessage());
         }
     }
 
     private CarType getCarType(ResultSet resultSet) throws SQLException {
-        long id = resultSet.getLong(columnId);
-        String type = resultSet.getString(columnTypename);
-        String description = resultSet.getString(columnDescription);
+        long id = resultSet.getLong(CarTypeDB.columnId);
+        String type = resultSet.getString(CarTypeDB.columnTypename);
+        String description = resultSet.getString(CarTypeDB.columnDescription);
 
         return new CarType(id, type, description);
     }
@@ -43,6 +38,7 @@ public class CarTypeDaoImpl implements ICarTypeDAO {
         List<CarType> carTypes = new ArrayList<>();
 
         try {
+            Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             System.out.println("id" + "\t\t" + "typename" + "\t\t" + "description");
@@ -64,6 +60,7 @@ public class CarTypeDaoImpl implements ICarTypeDAO {
         CarType carType = null;
 
         try {
+            Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()) {
@@ -84,6 +81,7 @@ public class CarTypeDaoImpl implements ICarTypeDAO {
         CarType carType = null;
 
         try {
+            Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()) {
@@ -103,6 +101,7 @@ public class CarTypeDaoImpl implements ICarTypeDAO {
         String query = "call create_type('" + typename + "','" + description + "')";
 
         try {
+            Statement statement = connection.createStatement();
             statement.execute(query);
         } catch (Exception error) {
             error.printStackTrace();
@@ -113,6 +112,7 @@ public class CarTypeDaoImpl implements ICarTypeDAO {
         String query = "call update_type(" + id + ",'" + typename + "','" + description + "');";
 
         try {
+            Statement statement = connection.createStatement();
             statement.execute(query);
         } catch (SQLException error) {
             error.printStackTrace();
@@ -123,6 +123,7 @@ public class CarTypeDaoImpl implements ICarTypeDAO {
         String query = "call delete_type(" + id + ")";
 
         try {
+            Statement statement = connection.createStatement();
             statement.execute(query);
         } catch (Exception error) {
             error.printStackTrace();
@@ -131,7 +132,6 @@ public class CarTypeDaoImpl implements ICarTypeDAO {
 
     public void closeConnection() {
         try {
-            statement.close();
             connection.close();
         } catch (SQLException error) {
             System.err.println(error.getMessage());

@@ -1,6 +1,7 @@
 package com.taxicall.database.dao;
 
 import com.taxicall.database.ConnectionPool;
+import com.taxicall.database.dao.dbColumns.CarDB;
 import com.taxicall.database.dao.interfaces.ICarDAO;
 import com.taxicall.database.entities.Car;
 
@@ -12,36 +13,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CarDaoImpl implements ICarDAO {
-    String columnId = "id";
-    String columnDriverId = "driver_id";
-    String columnLisenceNumber = "license_number";
-    String columnModel = "model";
-    String columnColor = "color";
-    String columnTypeId = "type_id";
-    String columnCreationDate = "creation_date";
-
     public Connection connection = null;
-    public Statement statement = null;
 
     public CarDaoImpl() {
         try {
-            ConnectionPool connectionPool = new ConnectionPool();
+            ConnectionPool connectionPool = ConnectionPool.getInstance();
             connection = connectionPool.getConnection("Car Data Source");
-            statement = connection.createStatement();
             System.out.println("Connected to the PostgreSQL server successfully.");
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.err.println(e.getMessage());
         }
     }
 
     private Car getCar(ResultSet resultSet) throws SQLException {
-        long id = resultSet.getLong(columnId);
-        long driver_id = resultSet.getLong(columnDriverId);
-        String license_number = resultSet.getString(columnLisenceNumber);
-        String model = resultSet.getString(columnModel);
-        String color = resultSet.getString(columnColor);
-        long type_id = resultSet.getLong(columnTypeId);
-        String creation_date = resultSet.getString(columnCreationDate);
+        long id = resultSet.getLong(CarDB.columnId);
+        long driver_id = resultSet.getLong(CarDB.columnDriverId);
+        String license_number = resultSet.getString(CarDB.columnLisenceNumber);
+        String model = resultSet.getString(CarDB.columnModel);
+        String color = resultSet.getString(CarDB.columnColor);
+        long type_id = resultSet.getLong(CarDB.columnTypeId);
+        String creation_date = resultSet.getString(CarDB.columnCreationDate);
 
         return new Car(id, driver_id, license_number, model, color, type_id, creation_date);
     }
@@ -51,6 +42,7 @@ public class CarDaoImpl implements ICarDAO {
         List<Car> cars = new ArrayList<>();
 
         try {
+            Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             System.out.println("id" + "\t\t" + "driver_id"
@@ -77,6 +69,7 @@ public class CarDaoImpl implements ICarDAO {
         Car car = null;
 
         try {
+            Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()) {
@@ -98,6 +91,7 @@ public class CarDaoImpl implements ICarDAO {
         List<Car> cars = new ArrayList<>();
 
         try {
+            Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             System.out.println("id" + "\t\t" + "driver_id"
@@ -130,6 +124,7 @@ public class CarDaoImpl implements ICarDAO {
                 + car.getTypeID() + ")";
 
         try {
+            Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()) {
@@ -147,6 +142,7 @@ public class CarDaoImpl implements ICarDAO {
         String query = "call update_car_" + field + "(" + carID + "," + "'" + value + "');";
 
         try {
+            Statement statement = connection.createStatement();
             statement.execute(query);
         } catch (SQLException error) {
             error.printStackTrace();
@@ -157,6 +153,7 @@ public class CarDaoImpl implements ICarDAO {
         String query = "call update_car_" + field + "(" + carID + "," + value + ");";
 
         try {
+            Statement statement = connection.createStatement();
             statement.execute(query);
         } catch (SQLException error) {
             error.printStackTrace();
@@ -167,6 +164,7 @@ public class CarDaoImpl implements ICarDAO {
         String query = "call delete_car(" + carID + ")";
 
         try {
+            Statement statement = connection.createStatement();
             statement.execute(query);
         } catch (Exception error) {
             error.printStackTrace();
@@ -175,7 +173,6 @@ public class CarDaoImpl implements ICarDAO {
 
     public void closeConnection() {
         try {
-            statement.close();
             connection.close();
         } catch (SQLException error) {
             System.err.println(error.getMessage());

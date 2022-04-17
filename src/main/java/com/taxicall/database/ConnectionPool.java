@@ -17,8 +17,10 @@ public class ConnectionPool {
     private static ConnectionPool instance = null;
 
     public static ConnectionPool getInstance() {
-        if (instance == null)
+        if (instance == null) {
+            System.out.println("here");
             instance = new ConnectionPool();
+        }
         return instance;
     }
 

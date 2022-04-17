@@ -1,6 +1,7 @@
 package com.taxicall.database.dao;
 
 import com.taxicall.database.ConnectionPool;
+import com.taxicall.database.dao.dbColumns.UserRoleDB;
 import com.taxicall.database.dao.interfaces.IUserRoleDAO;
 import com.taxicall.database.entities.UserRole;
 
@@ -12,27 +13,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserRoleDaoImpl implements IUserRoleDAO {
-    String columnId = "id";
-    String columnUserId = "user_id";
-    String columnRoleId = "role_id";
     public Connection connection = null;
-    public Statement statement = null;
 
     public UserRoleDaoImpl() {
         try {
-            ConnectionPool connectionPool = new ConnectionPool();
-            connection = connectionPool.getConnection("Users Role Data Source");
-            statement = connection.createStatement();
+            ConnectionPool connectionPool = ConnectionPool.getInstance();
+            connection = connectionPool.getConnection("Role Data Source");
             System.out.println("Connected to the PostgreSQL server successfully.");
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.err.println(e.getMessage());
         }
     }
 
     private UserRole getUserRole(ResultSet resultSet) throws SQLException {
-        long id = resultSet.getLong(columnId);
-        long userID = resultSet.getLong(columnUserId);
-        long roleID = resultSet.getLong(columnRoleId);
+        long id = resultSet.getLong(UserRoleDB.columnId);
+        long userID = resultSet.getLong(UserRoleDB.columnUserId);
+        long roleID = resultSet.getLong(UserRoleDB.columnRoleId);
 
         return new UserRole(id, userID, roleID);
     }
@@ -42,6 +38,7 @@ public class UserRoleDaoImpl implements IUserRoleDAO {
         List<UserRole> userRoleList = new ArrayList<>();
 
         try {
+            Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             System.out.println("id" + "\t\t" + "userID" + "\t\t" + "roleID");
@@ -63,6 +60,7 @@ public class UserRoleDaoImpl implements IUserRoleDAO {
         UserRole userRole = null;
 
         try {
+            Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()) {
@@ -84,6 +82,7 @@ public class UserRoleDaoImpl implements IUserRoleDAO {
         UserRole userRole = null;
 
         try {
+            Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()) {
@@ -102,6 +101,7 @@ public class UserRoleDaoImpl implements IUserRoleDAO {
         String query = "call connect_user_role(" + user_id + "," + role_id + ")";
 
         try {
+            Statement statement = connection.createStatement();
             statement.execute(query);
         } catch (Exception error) {
             error.printStackTrace();
@@ -112,6 +112,7 @@ public class UserRoleDaoImpl implements IUserRoleDAO {
         String query = "call delete_user_role_connection(" + id + ")";
 
         try {
+            Statement statement = connection.createStatement();
             statement.execute(query);
         } catch (Exception error) {
             error.printStackTrace();
@@ -120,7 +121,6 @@ public class UserRoleDaoImpl implements IUserRoleDAO {
 
     public void closeConnection() {
         try {
-            statement.close();
             connection.close();
         } catch (SQLException error) {
             System.err.println(error.getMessage());

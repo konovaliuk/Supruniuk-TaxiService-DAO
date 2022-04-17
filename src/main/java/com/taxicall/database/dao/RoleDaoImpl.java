@@ -1,6 +1,7 @@
 package com.taxicall.database.dao;
 
 import com.taxicall.database.ConnectionPool;
+import com.taxicall.database.dao.dbColumns.RoleDB;
 import com.taxicall.database.dao.interfaces.IRoleDAO;
 import com.taxicall.database.entities.Role;
 
@@ -12,26 +13,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RoleDaoImpl implements IRoleDAO {
-    String columnId = "id";
-    String columnRolename = "rolename";
-
     public Connection connection = null;
-    public Statement statement = null;
 
     public RoleDaoImpl() {
         try {
-            ConnectionPool connectionPool = new ConnectionPool();
+            ConnectionPool connectionPool = ConnectionPool.getInstance();
             connection = connectionPool.getConnection("Role Data Source");
-            statement = connection.createStatement();
             System.out.println("Connected to the PostgreSQL server successfully.");
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.err.println(e.getMessage());
         }
     }
 
     private Role getRole(ResultSet resultSet) throws SQLException {
-        long id = resultSet.getLong(columnId);
-        String rolename = resultSet.getString(columnRolename);
+        long id = resultSet.getLong(RoleDB.columnId);
+        String rolename = resultSet.getString(RoleDB.columnRolename);
 
         return new Role(id, rolename);
     }
@@ -41,6 +37,7 @@ public class RoleDaoImpl implements IRoleDAO {
         List<Role> roles = new ArrayList<>();
 
         try {
+            Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             System.out.println("id" + "\t\t" + "rolename");
@@ -62,6 +59,7 @@ public class RoleDaoImpl implements IRoleDAO {
         Role role = null;
 
         try {
+            Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()) {
@@ -81,6 +79,7 @@ public class RoleDaoImpl implements IRoleDAO {
         Role role = null;
 
         try {
+            Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             System.out.println("id" + "\t\t" + "rolename");
@@ -100,6 +99,7 @@ public class RoleDaoImpl implements IRoleDAO {
         String query = "call create_role('" + rolename + "')";
 
         try {
+            Statement statement = connection.createStatement();
             statement.execute(query);
         } catch (Exception error) {
             error.printStackTrace();
@@ -110,6 +110,7 @@ public class RoleDaoImpl implements IRoleDAO {
         String query = "call update_role(" + id + "," + "'" + rolename + "');";
 
         try {
+            Statement statement = connection.createStatement();
             statement.execute(query);
         } catch (SQLException error) {
             error.printStackTrace();
@@ -120,6 +121,7 @@ public class RoleDaoImpl implements IRoleDAO {
         String query = "call delete_role(" + id + ")";
 
         try {
+            Statement statement = connection.createStatement();
             statement.execute(query);
         } catch (Exception error) {
             error.printStackTrace();
@@ -128,7 +130,6 @@ public class RoleDaoImpl implements IRoleDAO {
 
     public void closeConnection() {
         try {
-            statement.close();
             connection.close();
         } catch (SQLException error) {
             System.err.println(error.getMessage());
